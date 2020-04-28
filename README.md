@@ -1,6 +1,6 @@
 # suncalc-swift
 
-![Swift](https://github.com/THeK3nger/suncalc-swift/workflows/Swift/badge.svg)
+![Swift CI](https://github.com/THeK3nger/suncalc-swift/workflows/Swift%20CI/badge.svg?event=push)
 
 This is a swift port for iOS of https://github.com/mourner/suncalc
 
