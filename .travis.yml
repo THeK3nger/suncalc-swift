@@ -1,3 +1,3 @@
 language: objective-c
-osx_image: xcode10.1
-script: "xcodebuild test -workspace Suncalc-Swift.xcworkspace -scheme suncalc-example -destination \"platform=iOS Simulator,name=iPhone 5s\""
+osx_image: xcode11.4
+script: "xcodebuild test -workspace Suncalc-Swift.xcworkspace -scheme suncalc-example -destination 'platform=iOS Simulator,name=iPhone 8'"
