@@ -18,7 +18,8 @@ class PositionUtils {
 	}
 	
 	class func getAzimuth(h:Double, phi:Double, dec:Double) -> Double {
-		return atan2(sin(h), cos(h) * sin(phi) - tan(dec) * cos(phi))
+		// Check: https://github.com/mourner/suncalc/issues/6
+        return .pi + atan2(sin(H), cos(H) * sin(phi) - tan(dec) * cos(phi))
 	}
 	
 	class func getAltitude(h:Double, phi:Double, dec:Double) -> Double {
