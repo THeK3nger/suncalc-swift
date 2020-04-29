@@ -6,7 +6,7 @@ This is a port for Swift of https://github.com/mourner/suncalc
 
 This code is based on the original Javascript suncalc by Vladimir Agafonkin ("mourner").
 
-This package is based on the initial porting of Shaun Meredith.
+This package is based on the [initial porting by Shaun Meredith](https://github.com/shanus/suncalc-swift).
 
 ```swift
 // get today's sunlight times for London
