@@ -8,10 +8,10 @@
 
 import Foundation
 
-class SunCalc {
+public class SunCalc {
 	let J0:Double = 0.0009
 	
-	var sunrise:Date
+	public var sunrise:Date
 	var sunriseEnd:Date
 	var goldenHourEnd:Date
 	var solarNoon:Date
@@ -33,7 +33,7 @@ class SunCalc {
         return TimeUtils.getSolarTransitJ(ds: a, M: M, L: L)
 	}
 	
-	class func getTimes(date:Date, latitude:Double, longitude:Double) -> SunCalc {
+	public class func getTimes(date:Date, latitude:Double, longitude:Double) -> SunCalc {
 		return SunCalc(date:date, latitude:latitude, longitude:longitude)
 	}
 	
