@@ -7,12 +7,10 @@
 
 import Foundation
 
-let π = 3.14159265358979
-
 class Constants {
 	
 	class func RAD() -> Double {
-		return π / 180.0
+        return Double.pi / 180.0
 	}
 	
 	class func E() -> Double {
@@ -20,6 +18,6 @@ class Constants {
 	}
 	
 	class func PI() -> Double {
-		return π
+        return Double.pi
 	}
 }
