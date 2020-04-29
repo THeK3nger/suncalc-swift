@@ -33,22 +33,22 @@ class TimeUtils {
         return TimeUtils.getSolarTransitJ(ds: a, M: M, L: L)
     }
     
-    @available(*, deprecated: 1.0, message: "will soon become unavailable. Use getJulianCycle instead.")
+    @available(swift, deprecated: 1.0, message: "will soon become unavailable. Use getJulianCycle instead.")
     class func getJulianCycleD(d:Double, lw:Double) -> Double {
         return TimeUtils.getJulianCycle(d: d, lw: lw)
     }
     
-    @available(*, deprecated: 1.0, message: "will soon become unavailable. Use getApproxTransit instead.")
+    @available(swift, deprecated: 1.0, message: "will soon become unavailable. Use getApproxTransit instead.")
     class func getApproxTransitHt(ht:Double, lw:Double, n:Double) -> Double {
         return TimeUtils.getApproxTransit(ht: ht, lw: lw, n: n)
     }
     
-    @available(*, deprecated: 1.0, message: "will soon become unavailable. Use getSolarTransitJ instead.")
+    @available(swift, deprecated: 1.0, message: "will soon become unavailable. Use getSolarTransitJ instead.")
     class func getSolarTransitJDs(ds:Double, M:Double, L:Double) -> Double {
         return TimeUtils.getSolarTransitJ(ds: ds, M: M, L: L)
     }
     
-    @available(*, deprecated: 1.0, message: "will soon become unavailable. Use getHourAngle instead.")
+    @available(swift, deprecated: 1.0, message: "will soon become unavailable. Use getHourAngle instead.")
     class func getHourAngleH(h:Double, phi:Double, d:Double) -> Double {
         return TimeUtils.getHourAngle(h: h, phi: phi, d: d)
     }
