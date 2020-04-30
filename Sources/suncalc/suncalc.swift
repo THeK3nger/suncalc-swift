@@ -38,29 +38,27 @@ public class SunCalc {
 	}
 	
 	class func getSunPosition(timeAndDate:Date, latitude:Double, longitude:Double) -> SunPosition {
-		let lw:Double = Constants.RAD() * -longitude
-		let phi:Double = Constants.RAD() * latitude
+		let phi:Double = Constants.RAD * latitude
         let d:Double = DateUtils.toDays(date: timeAndDate)
 		
         let c:EquatorialCoordinates = SunUtils.getSunCoords(d: d)
-        let H:Double = PositionUtils.getSiderealTime(d: d, lw: lw) - c.rightAscension
+        let H:Double = PositionUtils.getSiderealTime(d: d, longitude: longitude) - c.rightAscension
 		
-        return SunPosition(azimuth: PositionUtils.getAzimuth(h: H, phi: phi, dec: c.declination), altitude: PositionUtils.getAltitude(h: H, phi: phi, dec: c.declination))
+        return SunPosition(azimuth: PositionUtils.getAzimuth(H: H, phi: phi, dec: c.declination), altitude: PositionUtils.getAltitude(H: H, phi: phi, dec: c.declination))
 	}
 	
 	class func getMoonPosition(timeAndDate:Date, latitude:Double, longitude:Double) -> MoonPosition {
-		let lw:Double = Constants.RAD() * -longitude
-		let phi:Double = Constants.RAD() * latitude
+		let phi:Double = Constants.RAD * latitude
         let d:Double = DateUtils.toDays(date: timeAndDate)
 		
         let c:GeocentricCoordinates = MoonUtils.getMoonCoords(d: d)
-        let H:Double = PositionUtils.getSiderealTime(d: d, lw: lw) - c.rightAscension
-        var h:Double = PositionUtils.getAltitude(h: H, phi: phi, dec: c.declination)
+        let H:Double = PositionUtils.getSiderealTime(d: d, longitude: longitude) - c.rightAscension
+        var h:Double = PositionUtils.getAltitude(H: H, phi: phi, dec: c.declination)
 		
 		// altitude correction for refraction
-		h = h + Constants.RAD() * 0.017 / tan(h + Constants.RAD() * 10.26 / (h + Constants.RAD() * 5.10));
+		h = h + Constants.RAD * 0.017 / tan(h + Constants.RAD * 10.26 / (h + Constants.RAD * 5.10));
 		
-        return MoonPosition(azimuth: PositionUtils.getAzimuth(h: H, phi: phi, dec: c.declination), altitude: h, distance: c.distance)
+        return MoonPosition(azimuth: PositionUtils.getAzimuth(H: H, phi: phi, dec: c.declination), altitude: h, distance: c.distance)
 	}
 	
 	class func getMoonIllumination(timeAndDate:Date) -> MoonIllumination {
@@ -75,13 +73,13 @@ public class SunCalc {
 		let angle:Double = atan2(cos(s.declination) * sin(s.rightAscension - m.rightAscension), sin(s.declination) * cos(m.declination) - cos(s.declination) * sin(m.declination) * cos(s.rightAscension - m.rightAscension))
 		
 		let fraction:Double = (1 + cos(inc)) / 2
-		let phase:Double = 0.5 + 0.5 * inc * (angle < 0 ? -1 : 1) / Constants.PI()
+        let phase:Double = 0.5 + 0.5 * inc * (angle < 0 ? -1 : 1) / Double.pi
 		
 		return MoonIllumination(fraction: fraction, phase: phase, angle: angle)
 	}
     
     class func getMoonTimes(date:Date, latitude:Double, longitude:Double) -> MoonTimes {
-        let hc:Double = 0.133 * Constants.RAD()
+        let hc:Double = 0.133 * Constants.RAD
         var h0:Double = SunCalc.getMoonPosition(timeAndDate: date, latitude: latitude, longitude: longitude).altitude - hc
         var h1:Double = 0, h2:Double = 0, rise:Double = 0, set:Double = 0, a:Double = 0, b:Double = 0, xe:Double = 0, ye:Double = 0, d:Double = 0, roots:Double = 0, x1:Double = 0, x2:Double = 0, dx:Double = 0
         
@@ -145,8 +143,8 @@ public class SunCalc {
     
 	
 	init(date:Date, latitude:Double, longitude:Double) {
-		let lw:Double = Constants.RAD() * -longitude
-		let phi:Double = Constants.RAD() * latitude
+		let lw:Double = Constants.RAD * -longitude
+		let phi:Double = Constants.RAD * latitude
         let d:Double = DateUtils.toDays(date: date)
 		
         let n:Double = TimeUtils.getJulianCycle(d: d, lw: lw)
@@ -154,7 +152,7 @@ public class SunCalc {
 		
         let M:Double = SunUtils.getSolarMeanAnomaly(d: ds)
         let L:Double = SunUtils.getEclipticLongitudeM(M: M)
-        let dec:Double = PositionUtils.getDeclination(l: L, b: 0)
+        let dec:Double = PositionUtils.getDeclination(lambda: L, beta: 0)
 		
         let Jnoon:Double = TimeUtils.getSolarTransitJ(ds: ds, M: M, L: L)
 		
@@ -173,38 +171,38 @@ public class SunCalc {
 		//             ];
 		
 		var h:Double = -0.83
-        var Jset:Double = SunCalc.getSetJ(h: h * Constants.RAD(), phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
+        var Jset:Double = SunCalc.getSetJ(h: h * Constants.RAD, phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
 		var Jrise:Double = Jnoon - (Jset - Jnoon)
 		
         self.sunrise = DateUtils.fromJulian(j: Jrise)
         self.sunset = DateUtils.fromJulian(j: Jset)
 		
 		h = -0.3;
-        Jset = SunCalc.getSetJ(h: h * Constants.RAD(), phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
+        Jset = SunCalc.getSetJ(h: h * Constants.RAD, phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
 		Jrise = Jnoon - (Jset - Jnoon)
         self.sunriseEnd = DateUtils.fromJulian(j: Jrise)
         self.sunsetStart = DateUtils.fromJulian(j: Jset)
 		
 		h = -6;
-        Jset = SunCalc.getSetJ(h: h * Constants.RAD(), phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
+        Jset = SunCalc.getSetJ(h: h * Constants.RAD, phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
 		Jrise = Jnoon - (Jset - Jnoon)
         self.dawn = DateUtils.fromJulian(j: Jrise)
         self.dusk = DateUtils.fromJulian(j: Jset)
 		
 		h = -12;
-        Jset = SunCalc.getSetJ(h: h * Constants.RAD(), phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
+        Jset = SunCalc.getSetJ(h: h * Constants.RAD, phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
 		Jrise = Jnoon - (Jset - Jnoon)
         self.nauticalDawn = DateUtils.fromJulian(j: Jrise)
         self.nauticalDusk = DateUtils.fromJulian(j: Jset)
 		
 		h = -18;
-        Jset = SunCalc.getSetJ(h: h * Constants.RAD(), phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
+        Jset = SunCalc.getSetJ(h: h * Constants.RAD, phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
 		Jrise = Jnoon - (Jset - Jnoon)
         self.nightEnd = DateUtils.fromJulian(j: Jrise)
         self.night = DateUtils.fromJulian(j: Jset)
 		
 		h = 6;
-        Jset = SunCalc.getSetJ(h: h * Constants.RAD(), phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
+        Jset = SunCalc.getSetJ(h: h * Constants.RAD, phi: phi, dec: dec, lw: lw, n: n, M: M, L: L)
 		Jrise = Jnoon - (Jset - Jnoon)
         self.goldenHourEnd = DateUtils.fromJulian(j: Jrise)
         self.goldenHour = DateUtils.fromJulian(j: Jset)

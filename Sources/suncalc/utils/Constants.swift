@@ -1,23 +1,14 @@
-//
-//  Constants.swift
-//  suncalc-example
-//
-//  Created by Shaun Meredith on 10/2/14.
-//
-
 import Foundation
 
+/// Contains common constants.
+///
+/// - author: Davide Aversa
 class Constants {
+    
+    /// Obliquity of the ecliptic computed in the year 2000 expressed in radians.
+    public static let E: Double = Constants.RAD * 23.4397
+    
+    /// Multipling constant to convert Degrees into Radians
+    public static let RAD: Double = Double.pi / 180.0
 	
-	class func RAD() -> Double {
-        return Double.pi / 180.0
-	}
-	
-	class func E() -> Double {
-		return Constants.RAD() * 23.4397 // obliquity of the earth
-	}
-	
-	class func PI() -> Double {
-        return Double.pi
-	}
 }

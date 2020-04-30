@@ -12,11 +12,11 @@ let J0:Double = 0.0009
 class TimeUtils {
 	
 	class func getJulianCycle(d:Double, lw:Double) -> Double {
-		return round(d - J0 - lw / (2 * Constants.PI()))
+        return round(d - J0 - lw / (2 * Double.pi))
 	}
 	
 	class func getApproxTransit(ht:Double, lw:Double, n:Double) -> Double {
-		return J0 + (ht + lw) / (2 * Constants.PI()) + n
+        return J0 + (ht + lw) / (2 * Double.pi) + n
 	}
 	
 	class func getSolarTransitJ(ds:Double, M:Double, L:Double) -> Double {
