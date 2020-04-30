@@ -20,7 +20,7 @@ class TimeUtils {
 	}
 	
 	class func getSolarTransitJ(ds:Double, M:Double, L:Double) -> Double {
-		return J2000 + ds + 0.0053 * sin(M) - 0.0069 * sin(2 * L)
+        return DateUtils.J2000 + ds + 0.0053 * sin(M) - 0.0069 * sin(2 * L)
 	}
 	
 	class func getHourAngle(h:Double, phi:Double, d:Double) -> Double {

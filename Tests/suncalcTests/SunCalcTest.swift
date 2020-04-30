@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
-import suncalc_swift
+import suncalc
 
 class SunCalcTest: XCTestCase {
     func testGetTimes() {

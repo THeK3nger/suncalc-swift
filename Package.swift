@@ -4,12 +4,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "suncalc-swift",
+    name: "suncalc",
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
-            name: "suncalc-swift",
-            targets: ["suncalc-swift"]),
+            name: "suncalc",
+            targets: ["suncalc"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -19,10 +19,10 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "suncalc-swift",
+            name: "suncalc",
             dependencies: []),
         .testTarget(
-            name: "suncalc-swiftTests",
-            dependencies: ["suncalc-swift"]),
+            name: "suncalcTests",
+            dependencies: ["suncalc"]),
     ]
 )
