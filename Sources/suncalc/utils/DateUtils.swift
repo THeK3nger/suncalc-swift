@@ -7,31 +7,47 @@
 
 import Foundation
 
+public typealias JulianDate = Double
 
-class DateUtils {
-    
-    static let DAY_SECONDS:Double = 60 * 60 * 24
+public class DateUtils {
     
     /// Julian Date for 1970
-    static let J1970:Double = 2440588
+    static let J1970:JulianDate = 2440588
     
     /// Julian Date for 2000
-    static let J2000:Double = 2451545
+    static let J2000:JulianDate = 2451545
+    
+    private static let SECONDS_PER_DAY:TimeInterval = 60 * 60 * 24
 	
-	class func toJulian(date:Date) -> Double {
-		return Double(date.timeIntervalSince1970) / DAY_SECONDS - 0.5 + J1970
+    /// Convert a `Date` into Julian Date
+    /// - parameter date Input date
+    /// - returns: the input date expressed as `JulianDate`
+	static func toJulian(date:Date) -> JulianDate {
+		return (date.timeIntervalSince1970 / SECONDS_PER_DAY) - 0.5 + J1970
 	}
 	
-	class func fromJulian(j:Double) -> Date {
-		let timeInterval = (j + 0.5 - J1970) * DAY_SECONDS
+    /// Convert a `JulianDate` into `Date`
+    /// - parameter j Input `JulianDate`
+    /// - returns: the input fate expressed as `Date`
+	static func fromJulian(j:JulianDate) -> Date {
+		let timeInterval = (j + 0.5 - J1970) * SECONDS_PER_DAY
 		return Date(timeIntervalSince1970: timeInterval)
 	}
 	
-	class func toDays(date:Date) -> Double {
+    /// Returns the number of days since 2000.
+    /// - parameter date Input `Date`
+    /// - returns: the number of days since 2000
+	static func toDays(date:Date) -> Double {
+        // TODO: Is this a built in function in Date? Can I avoid an extra call and conversion?
         return DateUtils.toJulian(date: date) - J2000
 	}
     
-    class func getHoursLater(date:Date, hours:Double) -> Date? {
+    /// Sum `hours` to `date`
+    /// - parameters:
+    ///     - date The input `Date`
+    ///     - hours The number of hours to add.
+    /// - returns: The sum of `date` and `hours` hours.
+    static func getHoursLater(date:Date, hours:Double) -> Date? {
         let calendar:Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         return calendar.date(byAdding: .second, value: Int(hours*60*60), to: date)
     }
