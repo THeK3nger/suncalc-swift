@@ -151,7 +151,7 @@ public class SunCalc {
         let ds:Double = TimeUtils.getApproxTransit(ht: 0, lw: lw, n: n)
 		
         let M:Double = SunUtils.getSolarMeanAnomaly(d: ds)
-        let L:Double = SunUtils.getEclipticLongitudeM(M: M)
+        let L:Double = SunUtils.getEclipticLongitude(M: M)
         let dec:Double = PositionUtils.getDeclination(lambda: L, beta: 0)
 		
         let Jnoon:Double = TimeUtils.getSolarTransitJ(ds: ds, M: M, L: L)
