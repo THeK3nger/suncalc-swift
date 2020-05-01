@@ -28,4 +28,4 @@ println("sunrise azimuth: \(sunriseAzimuth)")
 
 ## Project Philosophy
 
-This project starts as a 1:1 port of the JavaScript's `suncal` but it will not stay like that. While I'll try to maintain as much as external API compatibility, I prefer to adopt a more _Swifty_ approach, especially for the internal functions.
+This project starts as a 1:1 port of the JavaScript's `suncalc` but it will not stay like that. While I'll try to maintain as much as external API compatibility, I prefer to adopt a more _Swifty_ approach, especially for the internal functions.
