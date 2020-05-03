@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SunCalc {
+public final class SunCalc {
 
     static let times: [(Double, SunTimes, SunTimes)] = [
         (-0.83, .sunrise, .sunset),
@@ -28,7 +28,15 @@ public class SunCalc {
         return TimeUtils.getSolarTransitJ(ds: a, M: M, L: L)
     }
 
-    public class func getTimes(
+    /// Returns all the standard times for the Sun in the give date
+    ///
+    /// - parameters:
+    ///     - date: The target date.
+    ///     - latitude: The geographical longitude.
+    ///     - longitude: The geographical latitude.
+    ///     - observerHeight: The height of the the observer eyes (in meters).
+    /// - returns: A dictionary mapping `SunTimes` to `Date` instances.
+    public static func getTimes(
         date: Date, latitude: Double, longitude: Double, observerHeight: Double = 0
     ) -> [SunTimes: Date] {
         let lw: Double = Constants.RAD * -longitude
