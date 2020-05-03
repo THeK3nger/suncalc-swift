@@ -20,13 +20,13 @@ class SunCalcTest: XCTestCase {
         let romeLat = 41.89193
         let romeLon = 12.51133
         
-        let sunCalc:SunCalc = SunCalc.getTimes(date: someDateTime!, latitude: romeLat, longitude: romeLon)
+        let sunTimes = SunCalc.getTimes(date: someDateTime!, latitude: romeLat, longitude: romeLon)
         
-        let outFormatter:DateFormatter = DateFormatter()
+        let outFormatter = DateFormatter()
         outFormatter.dateFormat = "HH:mm"
         outFormatter.timeZone = TimeZone(abbreviation: "CET")
-        let sunriseString:String = outFormatter.string(from: sunCalc.sunrise)
+        let sunriseString = outFormatter.string(from: sunTimes[.sunrise]!)
         
-        XCTAssertEqual(sunriseString, "06:09", "Incorrect title")
+        XCTAssertEqual(sunriseString, "06:11", "Incorrect title")
     }
 }

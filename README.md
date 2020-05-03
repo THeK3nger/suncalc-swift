@@ -9,23 +9,24 @@ This code is based on the original Javascript suncalc by Vladimir Agafonkin ("mo
 This package is based on the [initial porting by Shaun Meredith](https://github.com/shanus/suncalc-swift).
 
 ```swift
-// get today's sunlight times for London
+// We use SunCalc original implementation for reference values.
+let formatter = DateFormatter()
+formatter.dateFormat = "yyyy/MM/dd"
+let someDateTime = formatter.date(from: "2020/04/29")
 
-let date:Date = Date()
-let sunCalc:SunCalc = SunCalc.getTimes(date, latitude: 51.5, longitude: -0.1)
+let romeLat = 41.89193
+let romeLon = 12.51133
 
-var formatter:DateFormatter = DateFormatter()
-formatter.dateFormat = "HH:mm"
-formatter.timeZone = TimeZone(abbreviation: "GMT")
-var sunriseString:String = formatter.string(from: sunCalc.sunrise)
-println("sunrise is at \(sunriseString)")
+let sunTimes = SunCalc.getTimes(date: someDateTime!, latitude: romeLat, longitude: romeLon)
 
-let sunPos:SunPosition = SunCalc.getSunPosition(date, latitude: 51.5, longitude: -0.1)
+let outFormatter = DateFormatter()
+outFormatter.dateFormat = "HH:mm"
+outFormatter.timeZone = TimeZone(abbreviation: "CET")
+let sunriseString = outFormatter.string(from: sunTimes[.sunrise]!)
 
-var sunriseAzimuth:Double = sunPos.azimuth * 180 / Constants.PI()
-println("sunrise azimuth: \(sunriseAzimuth)")
+XCTAssertEqual(sunriseString, "06:11", "Incorrect title")
 ```
 
 ## Project Philosophy
 
-This project starts as a 1:1 port of the JavaScript's `suncalc` but it will not stay like that. While I'll try to maintain as much as external API compatibility, I prefer to adopt a more _Swifty_ approach, especially for the internal functions.
+This project starts as a 1:1 port of the JavaScript's `suncalcb` but it will not stay like that. While I'll try to maintain as much as external API compatibility, I prefer to adopt a more _Swifty_ approach, especially for the internal functions.
