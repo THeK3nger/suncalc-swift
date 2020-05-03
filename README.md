@@ -9,9 +9,11 @@ This code is based on the original Javascript suncalc by Vladimir Agafonkin ("mo
 This package is based on the [initial porting by Shaun Meredith](https://github.com/shanus/suncalc-swift).
 
 ```swift
+// Check Solar Times in Rome on 2020/04/29
 // We use SunCalc original implementation for reference values.
 let formatter = DateFormatter()
 formatter.dateFormat = "yyyy/MM/dd"
+formatter.timeZone = TimeZone(abbreviation: "CET")
 let someDateTime = formatter.date(from: "2020/04/29")
 
 let romeLat = 41.89193
@@ -24,7 +26,7 @@ outFormatter.dateFormat = "HH:mm"
 outFormatter.timeZone = TimeZone(abbreviation: "CET")
 let sunriseString = outFormatter.string(from: sunTimes[.sunrise]!)
 
-XCTAssertEqual(sunriseString, "06:11", "Incorrect title")
+XCTAssertEqual(sunriseString, "06:11", "Incorrect Sunrise Time")
 ```
 
 ## Project Philosophy

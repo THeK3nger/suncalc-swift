@@ -15,6 +15,7 @@ class SunCalcTest: XCTestCase {
         // We use SunCalc original implementation for reference values.
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
+        formatter.timeZone = TimeZone(abbreviation: "CET")
         let someDateTime = formatter.date(from: "2020/04/29")
         
         let romeLat = 41.89193
@@ -27,6 +28,6 @@ class SunCalcTest: XCTestCase {
         outFormatter.timeZone = TimeZone(abbreviation: "CET")
         let sunriseString = outFormatter.string(from: sunTimes[.sunrise]!)
         
-        XCTAssertEqual(sunriseString, "06:11", "Incorrect title")
+        XCTAssertEqual(sunriseString, "06:11", "Incorrect Sunrise Time")
     }
 }
