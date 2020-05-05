@@ -9,6 +9,12 @@ import Foundation
 
 class MoonUtils {
 	
+    // moon calculations, based on http://aa.quae.nl/en/reken/hemelpositie.html formulas
+    
+    /// Returns the geocentric ecliptic coordinates of the Moon
+    ///
+    /// - parameter d: The target Julian Date
+    /// - returns: The geocentric ecliptic coordinates of the Moon
 	class func getMoonCoords(d:Double) -> GeocentricCoordinates {
 		// geocentric ecliptic coordinates of the moon
 		
