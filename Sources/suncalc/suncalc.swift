@@ -130,12 +130,20 @@ public final class SunCalc {
             distance: c.distance, parallaticAngle: pa)
     }
 
+    /// Get the Moon illumination at the given Date
+    ///
+    /// Calculations for illumination parameters of the moon,
+    /// based on http://idlastro.gsfc.nasa.gov/ftp/pro/astro/mphase.pro formulas and
+    /// Chapter 48 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+    ///
+    /// - parameter timeAndDate: The input Date
+    /// - returns: the Moon illumination as fraction, phase and angle.
     class func getMoonIllumination(timeAndDate: Date) -> MoonIllumination {
         let d: Double = DateUtils.toDays(date: timeAndDate)
         let s: EquatorialCoordinates = SunUtils.getSunCoords(d: d)
         let m: GeocentricCoordinates = MoonUtils.getMoonCoords(d: d)
 
-        let sdist: Double = 149_598_000  // distance from Earth to Sun in km
+        let sdist: Double = 149_598_000  // distance from Earth to Sun in Km
 
         let phi: Double = acos(
             sin(s.declination) * sin(m.declination) + cos(s.declination) * cos(m.declination)
