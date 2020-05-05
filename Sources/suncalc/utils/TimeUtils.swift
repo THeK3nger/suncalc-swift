@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TimeUtils {
+struct TimeUtils {
     
     /// Provides the date and time of a transit of the Sun
     private static let J0:Double = 0.0009

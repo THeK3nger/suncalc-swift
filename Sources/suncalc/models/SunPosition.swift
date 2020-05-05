@@ -7,12 +7,7 @@
 
 import Foundation
 
-class SunPosition {
+struct SunPosition {
 	var azimuth:Double
 	var altitude:Double
-	
-	init(azimuth:Double, altitude:Double) {
-		self.azimuth = azimuth
-		self.altitude = altitude
-	}
 }

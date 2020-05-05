@@ -7,12 +7,7 @@
 
 import Foundation
 
-class EquatorialCoordinates {
-	var rightAscension:Double
-	var declination:Double
-	
-	init(rightAscension:Double, declination:Double) {
-		self.rightAscension = rightAscension
-		self.declination = declination
-	}
+struct EquatorialCoordinates {
+	let rightAscension:Double
+	let declination:Double
 }

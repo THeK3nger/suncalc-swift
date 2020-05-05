@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SunUtils {
+struct SunUtils {
 	
     /// Compute Solar Mean Anomaly
     ///
@@ -16,7 +16,7 @@ class SunUtils {
     ///
     /// - parameter d The number of decimal days since 2000.
     /// - returns: The Solar Mean Anomaly at the time.
-	class func getSolarMeanAnomaly(d:Double) -> Double {
+	static func getSolarMeanAnomaly(d:Double) -> Double {
         // The first number (357...) is the Mean Anomaly at time zero (here, 2000).
         //
         // The second number is the angle traversed by the plane as seen from the Sun
@@ -41,7 +41,7 @@ class SunUtils {
     ///
     /// - parameter M: The Mean Anomaly of the Earth
     /// - returns: The Equation of Center for planet Earth.
-	class func getEquationOfCenter(M:Double) -> Double {
+	static func getEquationOfCenter(M:Double) -> Double {
         // The hardcoded values depend on the eccentricity value for the Earth.
         // I was not able to double-check these values. For now, I assume
         // they are correct.
@@ -58,7 +58,7 @@ class SunUtils {
     ///
     /// - parameter M: The Solar Mean Anomaly
     /// - returns: The Ecliptic Longitude for the Sun as seen from the Earth.
-	class func getEclipticLongitude(M:Double) -> Double {
+	static func getEclipticLongitude(M:Double) -> Double {
         let C:Double = SunUtils.getEquationOfCenter(M:M)
 		let P:Double = Constants.RAD * 102.9372 // Perihelion of the Earth
         /// Equivalent to True Anomaly + P + Double.pi
@@ -69,7 +69,7 @@ class SunUtils {
     ///
     /// - parameter d: The Julian Days since 2000.
     /// - returns: The Equatorial Coordinates of the Sun.
-	class func getSunCoords(d:Double) -> EquatorialCoordinates {
+	static func getSunCoords(d:Double) -> EquatorialCoordinates {
         let M:Double = SunUtils.getSolarMeanAnomaly(d:d)
         let L:Double = SunUtils.getEclipticLongitude(M:M)
 		

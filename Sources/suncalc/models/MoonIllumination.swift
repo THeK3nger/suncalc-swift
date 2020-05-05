@@ -38,10 +38,4 @@ struct MoonIllumination {
     /// the moon is waxing if the angle is negative, and waning if positive
 	let angle:Double
 	
-	internal init(fraction:Double, phase:Double, angle:Double) {
-		self.fraction = fraction
-		self.phase = phase
-		self.angle = angle
-	}
-	
 }

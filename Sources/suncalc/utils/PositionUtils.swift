@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PositionUtils {
+struct PositionUtils {
 	
     /// Compute the Right Ascension given ecliptic latitude and longitude.
     ///

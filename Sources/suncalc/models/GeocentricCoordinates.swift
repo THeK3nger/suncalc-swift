@@ -7,14 +7,8 @@
 
 import Foundation
 
-class GeocentricCoordinates {
-	var rightAscension:Double;
-	var declination:Double;
-	var distance:Double;
-	
-	init(rightAscension:Double, declination:Double, distance:Double) {
-		self.rightAscension = rightAscension
-		self.declination = declination
-		self.distance = distance
-	}
+struct GeocentricCoordinates {
+	let rightAscension:Double;
+	let declination:Double;
+	let distance:Double;
 }

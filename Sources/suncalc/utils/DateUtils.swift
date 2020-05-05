@@ -9,7 +9,7 @@ import Foundation
 
 public typealias JulianDate = Double
 
-public class DateUtils {
+public struct DateUtils {
     
     /// Julian Date for 1970
     static let J1970:JulianDate = 2440588
