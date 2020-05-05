@@ -101,22 +101,33 @@ public final class SunCalc {
             altitude: PositionUtils.getAltitude(H: H, phi: phi, dec: c.declination))
     }
 
+    /// Return the position of the Moon in the sky in the current date at the given latitude and longitude.
+    ///
+    /// - parameters:
+    ///     - timeAndDate: The target Date.
+    ///     - latitude: The geographical latitude.
+    ///     - longitude: The geographical longitude.
+    /// - returns: The moon position.
     class func getMoonPosition(timeAndDate: Date, latitude: Double, longitude: Double)
         -> MoonPosition
     {
+        
         let phi: Double = Constants.RAD * latitude
         let d: Double = DateUtils.toDays(date: timeAndDate)
 
         let c: GeocentricCoordinates = MoonUtils.getMoonCoords(d: d)
         let H: Double = PositionUtils.getSiderealTime(d: d, longitude: longitude) - c.rightAscension
-        var h: Double = PositionUtils.getAltitude(H: H, phi: phi, dec: c.declination)
+        
+        // formula 14.1 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+        let pa = atan2(sin(H), tan(phi) * cos(c.declination) - sin(c.declination) * cos(H));
 
         // altitude correction for refraction
-        h = h + Constants.RAD * 0.017 / tan(h + Constants.RAD * 10.26 / (h + Constants.RAD * 5.10))
+        let h = PositionUtils.getAltitude(H: H, phi: phi, dec: c.declination)
+        let hCorrect = h + PositionUtils.getAstroRefraction(h: h)
 
         return MoonPosition(
-            azimuth: PositionUtils.getAzimuth(H: H, phi: phi, dec: c.declination), altitude: h,
-            distance: c.distance)
+            azimuth: PositionUtils.getAzimuth(H: H, phi: phi, dec: c.declination), altitude: hCorrect,
+            distance: c.distance, parallaticAngle: pa)
     }
 
     class func getMoonIllumination(timeAndDate: Date) -> MoonIllumination {

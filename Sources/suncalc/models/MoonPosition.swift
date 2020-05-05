@@ -7,14 +7,16 @@
 
 import Foundation
 
-class MoonPosition {
-	var azimuth:Double
-	var altitude:Double
-	var distance:Double
+struct MoonPosition {
+	let azimuth:Double
+	let altitude:Double
+	let distance:Double
+    let parallaticAngle:Double
 	
-	init(azimuth:Double, altitude:Double, distance:Double) {
-		self.azimuth = azimuth
-		self.altitude = altitude
-		self.distance = distance
-	}
+    internal init(azimuth: Double, altitude: Double, distance: Double, parallaticAngle: Double) {
+        self.azimuth = azimuth
+        self.altitude = altitude
+        self.distance = distance
+        self.parallaticAngle = parallaticAngle
+    }
 }
