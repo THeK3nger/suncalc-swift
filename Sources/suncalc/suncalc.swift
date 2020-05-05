@@ -160,6 +160,13 @@ public final class SunCalc {
         return MoonIllumination(fraction: fraction, phase: phase, angle: angle)
     }
 
+    /// Return the Moon Times
+    ///
+    /// - parameters:
+    ///     - date: The target `Date`
+    ///     - latitude: The geographical latitude.
+    ///     - longitude: The geographical longitude.
+    /// - returns: An object containing Rise/Set times **or** alwaysUp and alwaysDown.
     class func getMoonTimes(date: Date, latitude: Double, longitude: Double) -> MoonTimes {
         let hc: Double = 0.133 * Constants.RAD
         var h0: Double =
@@ -217,16 +224,13 @@ public final class SunCalc {
             if (rise != 0) && (set != 0) { break }
             h0 = h2
         }
-        var result = [String: Any?]()
-        result["alwaysUp"] = false
-        result["alwaysDown"] = false
-        if rise != 0 { result["rise"] = DateUtils.getHoursLater(date: date, hours: rise) }
-        if set != 0 { result["set"] = DateUtils.getHoursLater(date: date, hours: set) }
-        if (rise == 0) && (set == 0) { result[ye > 0 ? "alwaysUp" : "alwaysDown"] = true }
+        
+        if (rise == 0) && (set == 0) {
+            return ye > 0 ? .AlwaysUp : .AlwaysDown
+        }
+        
+        return .RiseAndSet(DateUtils.getHoursLater(date: date, hours: rise)!, DateUtils.getHoursLater(date: date, hours: set)!)
 
-        return MoonTimes(
-            rise: result["rise"] as? Date, set: result["set"] as? Date,
-            alwaysUp: result["alwaysUp"] as! Bool, alwaysDown: result["alwaysDown"] as! Bool)
     }
 
     private static func observerAngle(_ height: Double) -> Double {

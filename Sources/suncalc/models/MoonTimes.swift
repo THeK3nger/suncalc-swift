@@ -7,16 +7,8 @@
 
 import Foundation
 
-class MoonTimes {
-    var rise:Date?
-    var set:Date?
-    var alwaysUp:Bool
-    var alwaysDown:Bool
-    
-    init(rise:Date?, set:Date?, alwaysUp:Bool, alwaysDown:Bool) {
-        self.rise = rise
-        self.set = set
-        self.alwaysUp = alwaysUp
-        self.alwaysDown = alwaysDown
-    }
+public enum MoonTimes {
+    case RiseAndSet(Date, Date)
+    case AlwaysUp
+    case AlwaysDown
 }
