@@ -10,7 +10,7 @@ import Foundation
 
 public final class SunCalc {
 
-    static let times: [(Double, SunTimes, SunTimes)] = [
+    static let times: [(Double, SunTimesEnum, SunTimesEnum)] = [
         (-0.83, .sunrise, .sunset),
         (-0.3, .sunriseEnd, .sunsetStart),
         (-6, .dawn, .dusk),
@@ -38,7 +38,7 @@ public final class SunCalc {
     /// - returns: A dictionary mapping `SunTimes` to `Date` instances.
     public static func getTimes(
         date: Date, latitude: Double, longitude: Double, observerHeight: Double = 0
-    ) -> [SunTimes: Date] {
+    ) -> SunTimes {
         let lw: Double = Constants.RAD * -longitude
         let phi: Double = Constants.RAD * latitude
         let d: Double = DateUtils.toDays(date: date)
@@ -65,9 +65,9 @@ public final class SunCalc {
         //             [    6, 'goldenHourEnd', 'goldenHour'  ]
         //             ];
 
-        var computedTimes: [SunTimes: Date] = [:]
-        computedTimes[SunTimes.solarNoon] = DateUtils.fromJulian(j: Jnoon)
-        computedTimes[SunTimes.nadir] = DateUtils.fromJulian(j: Jnoon - 0.5)
+        var computedTimes: [SunTimesEnum: Date] = [:]
+        computedTimes[SunTimesEnum.solarNoon] = DateUtils.fromJulian(j: Jnoon)
+        computedTimes[SunTimesEnum.nadir] = DateUtils.fromJulian(j: Jnoon - 0.5)
         for timeVector in SunCalc.times {
             let (h0, morningName, eveningName) = timeVector
             let h = (h0 + deltaH) * Constants.RAD
@@ -77,7 +77,7 @@ public final class SunCalc {
             computedTimes[morningName] = morningTime
             computedTimes[eveningName] = eveningTime
         }
-        return computedTimes
+        return SunTimes.fromMap(table: computedTimes)
     }
     private static func computeTime(
         JNoon: Double, height: Double, phi: Double, lw: Double, declination dec: Double,

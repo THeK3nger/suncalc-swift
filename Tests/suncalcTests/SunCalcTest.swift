@@ -26,7 +26,7 @@ class SunCalcTest: XCTestCase {
         let outFormatter = DateFormatter()
         outFormatter.dateFormat = "HH:mm"
         outFormatter.timeZone = TimeZone(abbreviation: "CET")
-        let sunriseString = outFormatter.string(from: sunTimes[.sunrise]!)
+        let sunriseString = outFormatter.string(from: sunTimes.sunrise)
         
         XCTAssertEqual(sunriseString, "06:11", "Incorrect Sunrise Time")
     }
